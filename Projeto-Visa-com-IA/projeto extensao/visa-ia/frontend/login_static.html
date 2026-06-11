@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - VISA Londrina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/style/global.css" />
+  <link rel="stylesheet" href="/style/login.css" />
+</head>
+<body>
+  <main class="login-wrapper">
+    <div class="login-card-horizontal">
+      <!-- Lado Esquerdo: Identidade -->
+      <div class="login-sidebar">
+        <div class="shield-icon large">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="sidebar-text">
+          <h2>VISA Londrina</h2>
+          <p>Sistema de Vigilância Sanitária</p>
+        </div>
+        <div class="sidebar-footer">
+          <span>Portal de Serviços Integrados</span>
+        </div>
+      </div>
+      <!-- Lado Direito: Formulário -->
+      <div class="login-content">
+        <form id="loginForm">
+          <div class="role-selector-top">
+            <label class="role-option">
+              <input type="radio" name="role" value="empresa" checked>
+              <div class="role-tab">Empresa</div>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="role" value="servidor">
+              <div class="role-tab">Servidor VISA</div>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="identificador" id="label-identificador">CNPJ</label> 
+            <div class="input-wrapper">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="identificador" placeholder="00.000.000/0000-00">
+            </div>
+            <span id="error-identificador"></span>
+          </div>
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="password" placeholder="Digite sua senha">
+              <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+            <span id="error-password"></span>
+          </div>
+          <div class="form-row-utils">
+            <label class="checkbox-container">
+              <input type="checkbox" id="rememberMe">
+              <span>Lembrar meu acesso</span>
+            </label>
+          </div>
+          <button type="submit" class="btn-primary">Entrar no Sistema</button>
+          <div class="divider">
+            <span>ou acesse com</span>
+          </div>
+          <button type="button" class="btn-gov-br">Entrar com Gov.br</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="/js/global.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>
