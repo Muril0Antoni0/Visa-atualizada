@@ -108,6 +108,7 @@
     margin-bottom: 12px;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, #ffffff, #93c5fd);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -115,7 +116,7 @@
 .sidebar-text p {
     font-size: 14px;
     color: var(--text-muted);
-    max-width: 240px;
+    max-width: 220px;
     line-height: 1.5;
 }
 
@@ -137,11 +138,34 @@
 /* --- ÁREA DO FORMULÁRIO (DIREITA) --- */
 .login-content {
     flex: 1.2;
-    padding: 50px 64px;
+    padding: 40px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background: rgba(15, 23, 42, 0.4);
+}
+
+/* CABEÇALHO DO FORMULÁRIO */
+.form-header {
+    margin-bottom: 30px;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.form-header h3 {
+    color: var(--text-main);
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0 auto;
 }
 
 /* SELETOR DE PERFIL (TABS: EMPRESA / SERVIDOR) */
@@ -150,7 +174,7 @@
     background-color: rgba(15, 23, 42, 0.6);
     padding: 5px;
     border-radius: 14px;
-    margin-bottom: 32px;
+    margin-bottom: 30px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -196,7 +220,6 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--text-main);
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
@@ -234,6 +257,17 @@
     color: rgba(148, 163, 184, 0.4);
 }
 
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:focus,
+.input-wrapper input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
 /* Efeito ao clicar no campo */
 .input-wrapper input:focus {
     border-color: var(--primary-color);
@@ -241,7 +275,7 @@
     box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
-.input-wrapper input:focus ~ i {
+.input-wrapper input:focus~i {
     color: var(--primary-light);
 }
 
@@ -368,6 +402,31 @@
     cursor: not-allowed;
     transform: none !important;
     box-shadow: none !important;
+}
+
+/* TEXTO DE CADASTRO / ACESSO */
+.signup-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.signup-text a {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.signup-text a:hover {
+    color: #93c5fd;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.25);
 }
 
 /* DIVISOR "OU ACESSE COM" */

@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - VISA Londrina</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="/style/global.css" />
-  <link rel="stylesheet" href="/style/login.css" />
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/login.css" />
 </head>
+
 <body>
   <main class="login-wrapper">
     <div class="login-card-horizontal">
@@ -19,7 +21,7 @@
         </div>
         <div class="sidebar-text">
           <h2>VISA Londrina</h2>
-          <p>Sistema de Vigilância Sanitária</p>
+          <p>Faça login para acessar o Sistema de Vigilância Sanitária</p>
         </div>
         <div class="sidebar-footer">
           <span>Portal de Serviços Integrados</span>
@@ -27,6 +29,10 @@
       </div>
       <!-- Lado Direito: Formulário -->
       <div class="login-content">
+        <div class="form-header">
+          <h3>Acesse o Sistema</h3>
+          <p>Escolha seu perfil e informe suas credenciais para entrar.</p>
+        </div>
         <form id="loginForm">
           <div class="role-selector-top">
             <label class="role-option">
@@ -39,7 +45,7 @@
             </label>
           </div>
           <div class="form-group">
-            <label for="identificador" id="label-identificador">CNPJ</label> 
+            <label for="identificador" id="label-identificador">CNPJ</label>
             <div class="input-wrapper">
               <i class="fa-solid fa-user"></i>
               <input type="text" id="identificador" placeholder="00.000.000/0000-00">
@@ -62,6 +68,10 @@
             </label>
           </div>
           <button type="submit" class="btn-primary">Entrar no Sistema</button>
+          <div class="signup-text">
+            Não possui acesso?
+            <a href="./cadastro_static.html">Cadastre sua Empresa</a>
+          </div>
           <div class="divider">
             <span>ou acesse com</span>
           </div>
@@ -70,7 +80,8 @@
       </div>
     </div>
   </main>
-  <script src="/js/global.js"></script>
-  <script src="/js/login.js"></script>
+  <script src="./js/global.js"></script>
+  <script src="./js/login.js"></script>
 </body>
+
 </html>
