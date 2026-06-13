@@ -182,6 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 window.location.href = 'portal_static.html';
             }
-        }, 9000);
+        }, 3000);
     });
 });
