@@ -11,10 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadZones = document.querySelectorAll('.upload-zone');
     const progressValue = document.querySelector('.progress-value');
     const progressText = document.querySelector('.text-muted.text-sm');
-    
+
     const totalDocs = 8;
     const mandatoryFiles = {};
     const additionalFiles = [];
+
+    function setFieldError(inputId, errorId, message) {
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+
+        if (input) {
+            input.style.borderColor = 'var(--danger)';
+        }
+
+        if (error) {
+            error.innerText = message;
+            error.style.display = 'block';
+        }
+    }
+
+    function clearFieldError(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+
+        if (input) {
+            input.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+        }
+
+        if (error) {
+            error.innerText = '';
+            error.style.display = 'none';
+        }
+    }
 
     // --- Máscara de CNPJ ---
     const cnpjInput = document.getElementById('cnpj');
@@ -27,7 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{1,3})$/, "$1.$2.$3");
             else if (v.length > 2) v = v.replace(/^(\d{2})(\d{1,3})$/, "$1.$2");
             e.target.value = v;
+            clearFieldError('cnpj', 'error-cnpj');
         });
+    }
+
+    const razaoInput = document.getElementById('razao_social');
+    if (razaoInput) {
+        razaoInput.addEventListener('input', () => clearFieldError('razao_social', 'error-razao'));
+    }
+
+    const tipoEstabelecimento = document.getElementById('tipo_estabelecimento');
+    if (tipoEstabelecimento) {
+        tipoEstabelecimento.addEventListener('change', () => clearFieldError('tipo_estabelecimento', 'error-tipo'));
     }
 
     // --- Navegação de Passos ---
@@ -38,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stepIndicators.forEach((ind, i) => {
             ind.classList.toggle('active', i < currentStep);
             ind.classList.toggle('completed', i < currentStep - 1);
-            
+
             // Troca o ícone se completado
             const stepNumEl = ind.querySelector('.step-number');
             if (stepNumEl) {
@@ -68,34 +107,49 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, envie pelo menos 1 documento obrigatório para avançar.');
             return;
         }
-        if (currentStep < totalSteps) { 
-            currentStep++; 
-            updateSteps(); 
+        if (currentStep < totalSteps) {
+            currentStep++;
+            updateSteps();
         }
     });
 
     btnPrev.addEventListener('click', () => {
-        if (currentStep > 1) { 
-            currentStep--; 
-            updateSteps(); 
+        if (currentStep > 1) {
+            currentStep--;
+            updateSteps();
         }
     });
 
     function validateStep1() {
-        const fields = ['razao_social', 'cnpj', 'tipo_estabelecimento'];
         let valid = true;
-        fields.forEach(id => {
-            const el = document.getElementById(id);
-            const err = document.getElementById(`error-${id.split('_')[0]}`);
-            if (!el.value.trim()) {
-                el.style.borderColor = 'var(--danger)';
-                if (err) err.style.display = 'block';
-                valid = false;
-            } else {
-                el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                if (err) err.style.display = 'none';
-            }
-        });
+
+        if (!razaoInput || !razaoInput.value.trim()) {
+            setFieldError('razao_social', 'error-razao', 'A Razão Social é obrigatória');
+            valid = false;
+        } else if (razaoInput.value.trim().length < 3) {
+            setFieldError('razao_social', 'error-razao', 'A Razão Social deve ter pelo menos 3 caracteres');
+            valid = false;
+        } else {
+            clearFieldError('razao_social', 'error-razao');
+        }
+
+        if (!cnpjInput || !cnpjInput.value.trim()) {
+            setFieldError('cnpj', 'error-cnpj', 'O CNPJ é obrigatório');
+            valid = false;
+        } else if (cnpjInput.value.replace(/\D/g, '').length < 14) {
+            setFieldError('cnpj', 'error-cnpj', 'O CNPJ deve ter pelo menos 14 dígitos');
+            valid = false;
+        } else {
+            clearFieldError('cnpj', 'error-cnpj');
+        }
+
+        if (!tipoEstabelecimento || !tipoEstabelecimento.value) {
+            setFieldError('tipo_estabelecimento', 'error-tipo', 'Selecione o tipo de estabelecimento');
+            valid = false;
+        } else {
+            clearFieldError('tipo_estabelecimento', 'error-tipo');
+        }
+
         return valid;
     }
 
@@ -143,13 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset classes
         zone.classList.remove('uploaded', 'divergent');
         zone.classList.add('analyzing');
-        
+
         const zoneDefault = zone.querySelector('.zone-default');
         const zoneUploaded = zone.querySelector('.zone-uploaded');
-        
+
         zoneDefault.style.display = 'none';
         zoneUploaded.style.display = 'block';
-        
+
         // Exibe feedback visual de progresso/análise
         zoneUploaded.innerHTML = `
             <div style="padding: 1rem 0;">
@@ -169,16 +223,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Chamada real ao FastAPI
                 const formData = new FormData();
                 formData.append('file', file);
-                
+
                 const response = await fetch('/api/documentos/analisar', {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 if (!response.ok) {
                     throw new Error("Erro na comunicação com o servidor de IA");
                 }
-                
+
                 resultado = await response.json();
             }
 
@@ -192,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Renderiza zona com resultados
             renderUploadedZone(zone, docType, file, mandatoryFiles[docType]);
-            
+
             // Marca o checklist lateral
             const checkItem = document.querySelector(`.checklist-item[data-check="${docType}"]`);
             if (checkItem) {
@@ -213,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderUploadedZone(zone, docType, file, docData) {
         zone.classList.remove('analyzing');
-        
+
         const isConforme = docData.status === "Conforme";
         if (isConforme) {
             zone.classList.add('uploaded');
@@ -251,15 +305,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function removeDocument(zone, docType) {
         delete mandatoryFiles[docType];
-        
+
         zone.classList.remove('uploaded', 'divergent', 'analyzing');
-        
+
         const defaultZone = zone.querySelector('.zone-default');
         const uploadedZone = zone.querySelector('.zone-uploaded');
-        
+
         defaultZone.style.display = 'block';
         uploadedZone.style.display = 'none';
-        
+
         const input = zone.querySelector('.file-input');
         if (input) input.value = ''; // Limpa o input file
 
@@ -325,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateReviewSection() {
         document.getElementById('rev-razao').innerText = document.getElementById('razao_social').value || 'Não informado';
         document.getElementById('rev-cnpj').innerText = document.getElementById('cnpj').value || 'Não informado';
-        
+
         const tipoEst = document.getElementById('tipo_estabelecimento');
         document.getElementById('rev-tipo').innerText = tipoEst.options[tipoEst.selectedIndex].text || 'Não informado';
 
@@ -342,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const listContainer = document.getElementById('rev-obrig-list-container');
         const list = document.getElementById('rev-obrig-list');
         list.innerHTML = '';
-        
+
         if (countObrig > 0) {
             listContainer.style.display = 'block';
             Object.keys(mandatoryFiles).forEach(key => {
@@ -364,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Adicionais
         const countAdic = additionalFiles.length;
         document.getElementById('rev-adic').innerText = `${countAdic} enviado(s)`;
-        
+
         const adicContainer = document.getElementById('rev-adic-list-container');
         const adicList = document.getElementById('rev-adic-list');
         adicList.innerHTML = '';
@@ -389,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Laudo Técnico e Contrato Social costumam vir com alertas randômicos para testar o painel
                 const rand = Math.random();
                 const isConforme = rand > 0.35; // 65% chance de vir conforme
-                
+
                 let texto = "";
                 if (docType === "Contrato Social") {
                     texto = `CONTRATO SOCIAL DE CONSTITUIÇÃO DA EMPRESA LTDA\nCláusula 1ª - Razão Social: Bella Vita Estética Ltda\nCláusula 2ª - Objeto Social: Serviços de beleza, estética, depilação e procedimentos não cirúrgicos.\nCláusula 3ª - Capital Social de R$ 100.000,00 divididos em quotas.\nResponsável técnico médico ou esteticista habilitado nos termos das resoluções sanitárias vigentes do município de Londrina.`;
@@ -454,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calcula o número de divergências para dar um risco realista
             let divergentCount = 0;
             const docsList = [];
-            
+
             Object.keys(mandatoryFiles).forEach(key => {
                 const doc = mandatoryFiles[key];
                 if (doc.status === "Divergente") {
@@ -513,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (processosExistem) {
                 listaProcessos = JSON.parse(processosExistem);
             }
-            
+
             listaProcessos.unshift(novoProcesso);
             localStorage.setItem('visa_processos', JSON.stringify(listaProcessos));
 

@@ -26,7 +26,7 @@
 .page-subtitle {
     font-size: 14px;
     color: var(--text-muted);
-    margin-top: 4px;
+    margin: 10px 0 20px 0;
 }
 
 /* CARDS */
@@ -72,6 +72,10 @@
     justify-content: center;
     transition: all 0.3s ease;
     border: 1px solid transparent;
+}
+
+.step-label {
+    white-space: nowrap;
 }
 
 .step.active {
@@ -176,6 +180,17 @@ select {
     background-color: rgba(15, 23, 42, 0.4);
     color: white;
     transition: all 0.3s;
+}
+
+input[type="text"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill:hover,
+input[type="text"]:-webkit-autofill:focus,
+input[type="text"]:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.7) inset !important;
+    box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.7) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
 }
 
 input[type="text"]:focus,
@@ -387,6 +402,7 @@ select option {
     color: var(--text-muted);
     letter-spacing: 1px;
     font-weight: 600;
+    margin-top: 5px;
 }
 
 .checklist {
@@ -571,13 +587,300 @@ select option {
     transform: scale(1.1) rotate(10deg);
 }
 
-/* RESPONSIVE DESIGN */
+/* TABLETS */
 @media (max-width: 1024px) {
+
     .portal-grid {
         grid-template-columns: 1fr;
     }
-    
+
+    .portal-main {
+        order: 1;
+    }
+
     .portal-sidebar {
-        order: -1; /* Coloca o card de progresso em cima no mobile */
+        order: 2;
+    }
+
+    .portal-sidebar {
+        margin-top: 1rem;
+    }
+
+    .steps-container {
+        flex-wrap: wrap;
+    }
+
+    .step {
+        flex: 1 1 calc(50% - 12px);
+        min-width: calc(50% - 12px);
+    }
+}
+
+/* CELULARES */
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .page-header {
+        text-align: center;
+    }
+
+    .page-title {
+        font-size: 26px;
+        line-height: 1.2;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-top: 12px;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    .card-header-icon {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .card-title-lg {
+        font-size: 18px;
+    }
+
+    .card-subtitle {
+        line-height: 1.5;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .document-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-zone {
+        padding: 1.5rem 1rem;
+    }
+
+    .upload-zone p {
+        word-break: break-word;
+    }
+
+    .steps-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .step {
+        width: 100%;
+        min-width: 100%;
+        justify-content: flex-start;
+    }
+
+    .step-label {
+        white-space: normal;
+        line-height: 1.4;
+    }
+
+    .actions-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-outline,
+    .btn-success {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .review-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .checklist-item {
+        font-size: 13px;
+    }
+
+    .floating-btn {
+        width: 52px;
+        height: 52px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
+/* MENU MOBILE (650px) */
+@media (max-width: 650px) {
+
+    .main-content {
+        padding: 1.25rem .85rem;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .page-subtitle {
+        font-size: 12px;
+    }
+
+    .card {
+        border-radius: 18px;
+    }
+
+    .steps-container {
+        padding: 8px;
+    }
+
+    .step {
+        padding: 12px;
+    }
+
+    .step-number {
+        flex-shrink: 0;
+    }
+
+    .upload-zone {
+        border-radius: 18px;
+    }
+
+    .review-section {
+        padding: 1rem;
+    }
+
+    .review-item-value,
+    .review-item-label {
+        font-size: 12px;
+    }
+
+    .circular-progress {
+        width: 115px;
+        height: 115px;
+    }
+
+    .circular-progress::before {
+        width: 98px;
+        height: 98px;
+    }
+
+    .progress-value {
+        font-size: 24px;
+    }
+}
+
+/* CELULARES PEQUENOS */
+@media (max-width: 380px) {
+
+    .main-content {
+        padding: 1rem .75rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .page-subtitle {
+        font-size: 11px;
+    }
+
+    .card-title-lg {
+        font-size: 17px;
+    }
+
+    .card-subtitle {
+        font-size: 12px;
+    }
+
+    .step {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .step-number {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .upload-zone {
+        padding: 1.25rem .85rem;
+    }
+
+    .upload-zone i {
+        font-size: 28px;
+    }
+
+    input[type="text"],
+    select {
+        padding: 11px 14px;
+        font-size: 13px;
+    }
+
+    .btn-primary,
+    .btn-outline,
+    .btn-success {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .floating-btn {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+/* TELAS MUITO PEQUENAS */
+@media (max-width: 320px) {
+
+    .page-title {
+        font-size: 20px;
+    }
+
+    .page-subtitle {
+        font-size: 11px;
+    }
+
+    .card {
+        padding: .9rem;
+    }
+
+    .step {
+        font-size: 11px;
+    }
+
+    .progress-value {
+        font-size: 20px;
+    }
+
+    .progress-label {
+        font-size: 7px;
+    }
+
+    .circular-progress {
+        width: 96px;
+        height: 96px;
+    }
+
+    .circular-progress::before {
+        width: 82px;
+        height: 82px;
     }
 }
