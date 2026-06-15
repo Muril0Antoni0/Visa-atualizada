@@ -1,0 +1,135 @@
+/* Cabeçalho do formulário de cadastro */
+.form-header {
+    margin-bottom: 20px;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.form-header h3 {
+    color: var(--text-main);
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Mensagens de erro */
+.error-text {
+    color: var(--danger);
+    font-size: 12px;
+    display: none;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Ícone de mostrar/esconder senha */
+.togglePassword {
+    cursor: pointer;
+    position: absolute;
+    right: 16px;
+    left: auto !important;
+    color: var(--text-muted);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: auto;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.togglePassword:hover {
+    color: white;
+}
+
+#cadastro-password {
+    padding-right: 45px !important;
+}
+
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:focus,
+.input-wrapper input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Texto de rodapé (Já possui conta?) */
+.signup-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0px;
+}
+
+.signup-text a {
+    color: var(--primary-light);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.signup-text a:hover {
+    color: #93c5fd;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.25);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.login-content {
+    transition: opacity 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+    }
+}

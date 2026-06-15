@@ -1,0 +1,522 @@
+/* Centraliza o card de login vertical e horizontalmente na tela */
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Glowing Orbs for Aesthetics */
+.login-wrapper::before,
+.login-wrapper::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.15;
+}
+
+.login-wrapper::before {
+    width: 350px;
+    height: 350px;
+    background: var(--primary-color);
+    top: 10%;
+    left: 15%;
+}
+
+.login-wrapper::after {
+    width: 300px;
+    height: 300px;
+    background: #6366f1;
+    bottom: 15%;
+    right: 15%;
+}
+
+/* --- CARD PRINCIPAL (ESTRUTURA HORIZONTAL) --- */
+.login-card-horizontal {
+    display: flex;
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 100%;
+    max-width: 950px;
+    min-height: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- PAINEL LATERAL ESQUERDO (IDENTIDADE VISUAL) --- */
+.login-sidebar {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    color: white;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+}
+
+.login-sidebar::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(99, 102, 241, 0.1);
+    filter: blur(40px);
+    border-radius: 50%;
+}
+
+/* Container do ícone de escudo */
+.shield-icon.large {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4), inset 0 2px 2px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    z-index: 1;
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.sidebar-text {
+    z-index: 1;
+}
+
+.sidebar-text h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff, #93c5fd);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-text p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 220px;
+    line-height: 1.5;
+}
+
+/* Rodapé do painel lateral */
+.sidebar-footer {
+    margin-top: auto;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.sidebar-footer span {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+/* --- ÁREA DO FORMULÁRIO (DIREITA) --- */
+.login-content {
+    flex: 1.2;
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.4);
+}
+
+/* CABEÇALHO DO FORMULÁRIO */
+.form-header {
+    margin-bottom: 30px;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.form-header h3 {
+    color: var(--text-main);
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+/* SELETOR DE PERFIL (TABS: EMPRESA / SERVIDOR) */
+.role-selector-top {
+    display: flex;
+    background-color: rgba(15, 23, 42, 0.6);
+    padding: 5px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input {
+    display: none;
+}
+
+/* Estiliza o botão falso da tab */
+.role-tab {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.role-option:hover .role-tab {
+    color: white;
+}
+
+/* Estilo de quando o rádio selecionado */
+.role-option input:checked+.role-tab {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* --- CAMPOS DE ENTRADA (INPUTS) --- */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+}
+
+/* Container que agrupa o ícone e o input */
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Ícones dentro dos campos (usuário, cadeado) */
+.input-wrapper i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 15px 48px 15px 48px;
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    background-color: rgba(15, 23, 42, 0.5);
+    color: white;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(148, 163, 184, 0.4);
+}
+
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:focus,
+.input-wrapper input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.8) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Efeito ao clicar no campo */
+.input-wrapper input:focus {
+    border-color: var(--primary-color);
+    background-color: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.input-wrapper input:focus~i {
+    color: var(--primary-light);
+}
+
+/* Estado de Erro Visual */
+.input-wrapper input.input-error {
+    border-color: var(--danger);
+    background-color: rgba(244, 63, 94, 0.05);
+}
+
+.input-wrapper input.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.25);
+}
+
+/* Estilo das mensagens de erro */
+#error-identificador,
+#error-password {
+    color: var(--danger);
+    font-size: 12px;
+    display: none;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* Posicionamento do ícone de olho (mostrar senha) */
+#togglePassword {
+    left: auto;
+    right: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+    color: var(--text-muted);
+}
+
+#togglePassword:hover {
+    color: white;
+}
+
+/* --- CHECKBOX E LINKS AUXILIARES --- */
+.form-row-utils {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+/* CUSTOM CHECKBOX (Lembrar meu acesso) */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-muted);
+    user-select: none;
+    gap: 10px;
+    transition: color 0.3s;
+}
+
+.checkbox-container:hover {
+    color: white;
+}
+
+.checkbox-container input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    background-color: rgba(15, 23, 42, 0.5);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.checkbox-container input:hover {
+    border-color: var(--primary-light);
+}
+
+/* Cor quando marcado */
+.checkbox-container input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* Ícone de check branco dentro do checkbox marcado */
+.checkbox-container input:checked::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 10px;
+    color: white;
+}
+
+/* --- BOTÕES DE AÇÃO --- */
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* TEXTO DE CADASTRO / ACESSO */
+.signup-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.signup-text a {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.signup-text a:hover {
+    color: #93c5fd;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.25);
+}
+
+/* DIVISOR "OU ACESSE COM" */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.divider span {
+    padding: 0 16px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+/* BOTÃO GOV.BR */
+.btn-gov-br {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    border: 1.5px solid #1e3a8a;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-gov-br::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background-color: #f59e0b;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #f59e0b;
+}
+
+.btn-gov-br:hover {
+    background-color: rgba(30, 58, 138, 0.2);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+.btn-gov-br:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 850px) {
+    .login-card-horizontal {
+        flex-direction: column;
+        max-width: 450px;
+        min-height: auto;
+    }
+
+    .login-sidebar {
+        padding: 40px 24px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .login-sidebar::before {
+        display: none;
+    }
+
+    .shield-icon.large {
+        width: 70px;
+        height: 70px;
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+
+    .login-content {
+        padding: 40px 32px;
+    }
+}

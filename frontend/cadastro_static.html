@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - VISA Londrina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="./style/global.css" />
+    <link rel="stylesheet" href="./style/login.css" />
+    <link rel="stylesheet" href="./style/cadastro.css" />
+    <link rel="icon" href="./img/escudo.svg" type="image/png">
+</head>
+
+<body>
+    <main class="login-wrapper">
+        <div class="login-card-horizontal">
+            <!-- Lado Esquerdo: Identidade -->
+            <div class="login-sidebar">
+                <div class="shield-icon large">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="sidebar-text">
+                    <h2>VISA Londrina</h2>
+                    <p>Crie sua conta para acessar o Sistema da Vigilância Sanitária</p>
+                </div>
+                <div class="sidebar-footer">
+                    <span>Portal de Serviços Integrados</span>
+                </div>
+            </div>
+            <!-- Lado Direito: Formulário de Cadastro -->
+            <div class="login-content">
+                <div class="form-header">
+                    <h3>Primeiro Acesso</h3>
+                    <p>Preencha os dados da empresa para criar sua conta.</p>
+                </div>
+                <form id="cadastroForm" novalidate>
+                    <!-- CNPJ -->
+                    <div class="form-group">
+                        <label for="cadastro-cnpj">CNPJ da Empresa</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-building"></i>
+                            <input type="text" id="cadastro-cnpj" placeholder="00.000.000/0000-00">
+                        </div>
+                        <span id="error-cnpj" class="error-text"></span>
+                    </div>
+                    <!-- Razão Social -->
+                    <div class="form-group">
+                        <label for="cadastro-razao">Razão Social</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <input type="text" id="cadastro-razao" placeholder="Nome jurídico da empresa">
+                        </div>
+                        <span id="error-razao" class="error-text"></span>
+                    </div>
+                    <!-- E-mail -->
+                    <div class="form-group">
+                        <label for="cadastro-email">E-mail Institucional</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="cadastro-email" placeholder="exemplo@empresa.com">
+                        </div>
+                        <span id="error-email" class="error-text"></span>
+                    </div>
+                    <!-- Senha -->
+                    <div class="form-group">
+                        <label for="cadastro-password">Crie sua Senha</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="cadastro-password"
+                                placeholder="Mínimo 8 caracteres (letras e números)">
+                            <i class="fa-solid fa-eye-slash togglePassword"></i>
+                        </div>
+                        <span id="error-password" class="error-text"></span>
+                    </div>
+                    <button type="submit" class="btn-primary">Finalizar Cadastro</button>
+                    <div class="signup-text">
+                        Já possui acesso? <a href="./login_static.html">Voltar para o Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="./js/cadastro.js"></script>
+</body>
+
+</html>

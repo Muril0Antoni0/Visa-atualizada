@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Analista Sanitário - VISA Londrina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/dashboard.css">
+    <link rel="stylesheet" href="./style/global.css" />
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a class="logo-area">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>VISA Londrina</h1>
+                    <span>VIGILÂNCIA SANITÁRIA</span>
+                </div>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <a href="./portal_static.html" class="nav-link">Portal de Documentos</a>
+                <a href="./dashboard_static.html" class="nav-link active">Dashboard VISA</a>
+                <a href="./login_static.html" class="nav-link logout" title="Sair"><i
+                        class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header mt-4">
+            <h1 class="page-title">Dashboard do Analista Sanitário</h1>
+            <p class="page-subtitle">Gerencie a fila de processos com indicadores de risco e pré-relatórios IA.</p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-grid mt-5">
+            <div class="stat-card">
+                <div class="stat-icon box-blue">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-total">0</h3>
+                    <p>Total de Processos</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon box-yellow">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-pendentes">0</h3>
+                    <p>Em Diligência</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon box-blue"
+                    style="background-color: rgba(6, 182, 212, 0.12); color: var(--info); border: 1px solid rgba(6, 182, 212, 0.2);">
+                    <i class="fa-regular fa-circle-play"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-analise">0</h3>
+                    <p>Em Análise</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon box-red">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-críticos">0</h3>
+                    <p>Críticos / Alto Risco</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-container mt-4">
+            <div class="filter-header">
+                <i class="fa-solid fa-sliders text-muted"></i>
+                <span class="font-weight-600">Filtrar & Buscar Processos</span>
+            </div>
+            <div class="filters-row mt-3">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Buscar por Razão Social ou ID do processo...">
+                </div>
+
+                <div class="filter-select select-wrapper">
+                    <select id="filter-status">
+                        <option value="">Todos os Status</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em Análise">Em Análise</option>
+                        <option value="Diligência">Diligência</option>
+                        <option value="Aprovado">Aprovado</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                <div class="filter-select select-wrapper">
+                    <select id="filter-tipo">
+                        <option value="">Todos os Tipos</option>
+                        <option value="Alimentício">Alimentício</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Farmacêutico">Farmacêutico</option>
+                        <option value="Estético">Estético</option>
+                        <option value="Veterinário">Veterinário</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                <div class="filter-select select-wrapper">
+                    <select id="filter-prioridade">
+                        <option value="">Todos os Riscos</option>
+                        <option value="low">Risco Baixo</option>
+                        <option value="medium">Risco Médio</option>
+                        <option value="high">Risco Alto</option>
+                        <option value="critical">Crítico</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processes Container -->
+        <div class="processes-grid mt-4" id="processes-container">
+            <!-- Os cards dos processos serão injetados aqui via JS -->
+        </div>
+
+        <!-- Floating Help Button -->
+        <div class="floating-btn">
+            <i class="fa-regular fa-comment-dots"></i>
+        </div>
+    </main>
+
+    <!-- DETAILS MODAL -->
+    <div class="modal-overlay" id="details-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-header-title">
+                    <h3 id="modal-process-title">Nome da Empresa</h3>
+                    <span class="process-id" id="modal-process-id">VISA-XXXXXX</span>
+                </div>
+                <button class="modal-close-btn" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <!-- Coluna Esquerda: Dados e Lista de Documentos -->
+                    <div>
+                        <h4 class="modal-section-title">Dados Cadastrais</h4>
+                        <div class="info-block">
+                            <div>
+                                <span class="review-item-label text-sm">CNPJ:</span>
+                                <p class="font-weight-600 text-sm" id="modal-cnpj">00.000.000/0000-00</p>
+                            </div>
+                            <div>
+                                <span class="review-item-label text-sm">Categoria:</span>
+                                <p class="font-weight-600 text-sm" id="modal-tipo">Alimentício</p>
+                            </div>
+                            <div>
+                                <span class="review-item-label text-sm">Status Atual:</span>
+                                <p class="font-weight-600 text-sm" id="modal-status">Em Análise</p>
+                            </div>
+                            <div>
+                                <span class="review-item-label text-sm">Risco Calculado:</span>
+                                <p class="font-weight-600 text-sm" id="modal-risco">Risco Baixo (12)</p>
+                            </div>
+                        </div>
+
+                        <h4 class="modal-section-title">Documentação Enviada</h4>
+                        <ul class="doc-list-modal" id="modal-doc-list">
+                            <!-- Injetado via JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Coluna Direita: Detalhe do Documento Selecionado / Pré-relatório IA -->
+                    <div>
+                        <!-- Abas de Navegação Direita (Visualizar OCR vs Gerar Pré-Relatório) -->
+                        <div style="display:flex; gap:10px; margin-bottom:12px;">
+                            <button class="btn-neutral" id="tab-ocr"
+                                style="flex:1; padding:8px; font-size:12px; background-color: var(--primary-color);">Visualizar
+                                OCR</button>
+                            <button class="btn-neutral" id="tab-report"
+                                style="flex:1; padding:8px; font-size:12px;">Pré-Relatório IA</button>
+                        </div>
+
+                        <!-- Painel OCR -->
+                        <div class="doc-view-panel" id="panel-ocr">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h5 class="font-weight-600" id="panel-doc-type" style="color: white; font-size:14px;">
+                                    Selecione um documento</h5>
+                                <span class="badge" id="panel-doc-status">Status</span>
+                            </div>
+                            <textarea class="ocr-textarea" id="panel-ocr-text" readonly
+                                placeholder="O texto extraído pelo OCR aparecerá aqui..."></textarea>
+
+                            <!-- Opções do Auditor para o Documento -->
+                            <div style="display: flex; gap: 10px; margin-top: 12px;">
+                                <button class="btn-success" id="btn-doc-approve"
+                                    style="flex: 1; padding: 8px; font-size: 12px; justify-content: center;"><i
+                                        class="fa-solid fa-check"></i> Aprovar Doc</button>
+                                <button class="btn-danger" id="btn-doc-reject"
+                                    style="flex: 1; padding: 8px; font-size: 12px; justify-content: center;"><i
+                                        class="fa-solid fa-xmark"></i> Rejeitar Doc</button>
+                            </div>
+                        </div>
+
+                        <!-- Painel Relatório -->
+                        <div class="doc-view-panel" id="panel-report" style="display:none; height:100%;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h5 class="font-weight-600" style="color: white; font-size:14px;">Pré-Relatório
+                                    Sanitário IA</h5>
+                                <button class="btn-neutral" id="btn-print-report"
+                                    style="padding: 4px 8px; font-size: 11px;"><i class="fa-solid fa-print"></i>
+                                    Imprimir</button>
+                            </div>
+                            <div class="report-container" id="report-content">
+                                <!-- Injetado via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div>
+                    <!-- Status Actions -->
+                    <button class="btn-success" id="btn-process-approve"><i class="fa-solid fa-circle-check"></i>
+                        Deferir Processo</button>
+                    <button class="btn-danger" id="btn-process-diligence"><i class="fa-solid fa-clock-rotate-left"></i>
+                        Solicitar Diligência</button>
+                </div>
+                <button class="btn-neutral" id="btn-close-modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/global.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
