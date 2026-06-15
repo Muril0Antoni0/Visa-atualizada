@@ -1,7 +1,11 @@
 .main-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.5rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
 }
 
 .page-title {
@@ -22,6 +26,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .stat-card {
@@ -98,6 +103,7 @@
     border: 1px solid var(--card-border);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    margin-top: 1.5rem;
 }
 
 .filter-header {
@@ -182,6 +188,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .process-card {
@@ -593,42 +600,311 @@
     transform: scale(1.1) rotate(10deg);
 }
 
-/* PRINT RULES FOR PRE-REPORTS */
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    .report-container, .report-container * {
-        visibility: visible;
-    }
-    .report-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        max-height: none !important;
-        overflow: visible !important;
-        box-shadow: none !important;
-        border: none !important;
-        padding: 0 !important;
-    }
-}
-
-/* RESPONSIVE DESIGN */
+/* TABLETS */
 @media (max-width: 1024px) {
+
+    .main-content {
+        padding: 2rem 1rem;
+    }
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .filters-row {
         flex-direction: column;
     }
+
     .processes-grid {
         grid-template-columns: 1fr;
     }
+
     .modal-grid {
         grid-template-columns: 1fr;
     }
+
     .modal-card {
         max-height: 95vh;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+}
+
+/* CELULARES */
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .breadcrumb {
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .page-header {
+        text-align: center;
+    }
+
+    .page-title {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+    }
+
+    .stat-info h3 {
+        font-size: 32px;
+    }
+
+    .filters-container {
+        padding: 1.25rem;
+    }
+
+    .filter-header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .filters-row {
+        gap: 12px;
+    }
+
+    .search-box,
+    .filter-select {
+        width: 100%;
+    }
+
+    .search-box input,
+    .filter-select select {
+        height: 52px;
+        font-size: 14px;
+    }
+
+    .processes-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .process-card {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+
+    .process-title-area h4 {
+        font-size: 18px;
+    }
+
+    .process-badges {
+        gap: 6px;
+    }
+
+    .process-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .floating-btn {
+        width: 54px;
+        height: 54px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .main-content {
+        padding: 1.25rem 1rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+        border-radius: 18px;
+    }
+
+    .filters-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .search-box,
+    .filter-select {
+        width: 100%;
+    }
+
+    .processes-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .process-card {
+        padding: 1.25rem;
+        border-radius: 18px;
+    }
+
+    .process-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-card {
+        max-height: 96vh;
+        border-radius: 20px;
+    }
+
+    .modal-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .info-block {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .modal-footer>div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-success,
+    .btn-danger,
+    .btn-neutral {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* CELULARES PEQUENOS */
+@media (max-width: 380px) {
+
+    .main-content {
+        padding: 1rem .75rem;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .page-subtitle {
+        font-size: 11px;
+    }
+
+    .stat-card {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    .stat-info h3 {
+        font-size: 24px;
+    }
+
+    .process-card {
+        padding: 1rem;
+    }
+
+    .process-title-area h4 {
+        font-size: 16px;
+    }
+
+    .process-id {
+        font-size: 11px;
+    }
+
+    .badge {
+        font-size: 9px;
+    }
+
+    .search-box input,
+    .filter-select select {
+        height: 48px;
+        font-size: 13px;
+    }
+
+    .modal-header-title h3 {
+        font-size: 16px;
+    }
+
+    .report-container {
+        padding: 1rem;
+        font-size: 12px;
+    }
+
+    .floating-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}
+
+/* TELAS MUITO PEQUENAS */
+@media (max-width: 320px) {
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .stat-info h3 {
+        font-size: 22px;
+    }
+
+    .process-title-area h4 {
+        font-size: 15px;
+    }
+
+    .modal-body {
+        padding: 1rem;
     }
 }
