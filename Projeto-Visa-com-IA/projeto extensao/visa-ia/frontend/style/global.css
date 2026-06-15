@@ -246,19 +246,6 @@ body {
 
 @media (max-width: 650px) {
 
-    .main-header {
-        padding: 0;
-    }
-
-    .header-container {
-        position: relative;
-        height: 72px;
-        padding: 0 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .menu-toggle {
         display: flex;
         align-items: center;
@@ -267,25 +254,29 @@ body {
 
     .main-nav {
         position: absolute;
-        top: calc(100% + 10px);
-        left: 1rem;
-        right: 1rem;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding: 1rem;
+
+        padding: 16px;
+
         background: rgba(11, 15, 25, 0.98);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow:
-            0 20px 40px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(16px);
+
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+
+        box-shadow: var(--shadow-lg);
+
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-15px);
-        transition: all .3s ease;
-        z-index: 999;
+        transform: translateY(-10px);
+
+        transition: all 0.3s ease;
     }
 
     .main-nav.active {
@@ -294,24 +285,11 @@ body {
         transform: translateY(0);
     }
 
-    .nav-link {
+    .main-nav .nav-link {
         width: 100%;
+        justify-content: center;
         text-align: center;
         padding: 14px;
-        border-radius: 12px;
-        font-size: 14px;
-    }
-
-    .nav-link.logout {
-        justify-content: center;
-    }
-
-    .brand-text h1 {
-        font-size: 17px;
-    }
-
-    .brand-text span {
-        font-size: 9px;
     }
 }
 

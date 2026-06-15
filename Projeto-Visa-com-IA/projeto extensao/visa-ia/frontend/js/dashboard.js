@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 processos = defaultProcessos;
             }
         }
-        
+
         renderizarGrid();
         renderizarEstatisticas();
     }
@@ -203,13 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 3. RENDERIZAR INDICADORES ---
     function renderizarEstatisticas() {
         statTotal.innerText = processos.length;
-        
+
         const pendentes = processos.filter(p => p.status === 'Diligência').length;
         statPendentes.innerText = pendentes;
-        
+
         const analise = processos.filter(p => p.status === 'Em Análise' || p.status === 'Pendente').length;
         statAnalise.innerText = analise;
-        
+
         const criticos = processos.filter(p => p.risco_class === 'critical' || p.risco_class === 'high').length;
         statCriticos.innerText = criticos;
     }
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         processosFiltrados.forEach(p => {
             const card = document.createElement('div');
             card.className = 'process-card animate-slide';
-            
+
             // Determina as classes e ícones dos badges
             let statusBadgeClass = 'badge-light-outline';
             let statusIcon = 'fa-clock';
@@ -323,14 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 5. DETALHES DO MODAL E INTERAÇÕES ---
     function abrirModal(p) {
         activeProcess = p;
-        
+
         modalProcessTitle.innerText = p.nome;
         modalProcessId.innerText = p.id;
         modalCnpj.innerText = p.cnpj || 'Não informado';
         modalTipo.innerText = p.tipo;
         modalStatus.innerText = p.status;
         modalRisco.innerText = p.risco;
-        
+
         // Estiliza a cor do status no modal
         modalStatus.className = 'font-weight-600 text-sm';
         if (p.status === 'Aprovado') modalStatus.style.color = 'var(--success)';
@@ -338,11 +338,11 @@ document.addEventListener('DOMContentLoaded', () => {
         else modalStatus.style.color = 'var(--primary-light)';
 
         renderModalDocumentos();
-        
+
         // Exibe modal e reseta para a aba OCR padrão
         detailsModal.style.display = 'flex';
         ativarAbaOcr();
-        
+
         // Seleciona o primeiro documento por padrão se houver
         if (p.documentos && p.documentos.length > 0) {
             selecionarDocumento(0);
@@ -357,15 +357,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderModalDocumentos() {
         modalDocList.innerHTML = '';
-        
+
         activeProcess.documentos.forEach((doc, idx) => {
             const li = document.createElement('li');
             li.className = `doc-item-modal ${idx === activeDocumentIndex ? 'active' : ''}`;
-            
+
             const isConforme = doc.status === 'Conforme' || doc.status === 'Aprovado';
             const icon = isConforme ? 'fa-circle-check' : 'fa-circle-exclamation';
             const color = isConforme ? 'var(--success)' : 'var(--warning)';
-            
+
             li.innerHTML = `
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fa-solid ${icon}" style="color: ${color};"></i>
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${doc.status}
                 </span>
             `;
-            
+
             li.addEventListener('click', () => selecionarDocumento(idx));
             modalDocList.appendChild(li);
         });
@@ -386,23 +386,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function selecionarDocumento(idx) {
         activeDocumentIndex = idx;
-        
+
         // Atualiza a seleção visual
         document.querySelectorAll('.doc-item-modal').forEach((li, i) => {
             li.classList.toggle('active', i === idx);
         });
 
         const doc = activeProcess.documentos[idx];
-        
+
         panelDocType.innerText = doc.tipo;
         panelDocStatus.style.display = 'inline-flex';
         panelDocStatus.innerText = doc.status;
-        
+
         const isConforme = doc.status === 'Conforme' || doc.status === 'Aprovado';
         panelDocStatus.className = `badge ${isConforme ? 'badge-success-outline' : 'badge-warning-outline'}`;
-        
+
         panelOcrText.value = doc.texto || "Nenhum texto pôde ser lido pela IA para este documento.";
-        
+
         btnDocApprove.disabled = false;
         btnDocReject.disabled = false;
     }
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalStatus.innerText = "Aprovado";
             modalStatus.style.color = 'var(--success)';
             modalRisco.innerText = "Risco Baixo (0)";
-            
+
             salvarAlteracoesProcesso();
             inicializarProcessos(); // Recarrega estatísticas e grids
         }
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeProcess.status = "Diligência";
             modalStatus.innerText = "Diligência";
             modalStatus.style.color = 'var(--warning)';
-            
+
             salvarAlteracoesProcesso();
             inicializarProcessos();
         }
@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeModalBtn.addEventListener('click', fecharModal);
     btnCloseModal.addEventListener('click', fecharModal);
-    
+
     // Fecha clicando fora da caixa do modal
     detailsModal.addEventListener('click', (e) => {
         if (e.target === detailsModal) {
@@ -606,4 +606,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 10. INICIALIZAÇÃO ---
     inicializarProcessos();
+
+    /*MENU HAMBÚRGUER */
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    if (menuToggle && mainNav) {
+
+        const icon = menuToggle.querySelector('i');
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mainNav.classList.toggle('active');
+            if (mainNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        /* Fecha ao clicar fora */
+        document.addEventListener('click', (e) => {
+            const clicouNoMenu = mainNav.contains(e.target);
+            const clicouNoBotao = menuToggle.contains(e.target);
+            if (mainNav.classList.contains('active') && !clicouNoMenu && !clicouNoBotao) {
+                mainNav.classList.remove('active');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        /* Fecha ao clicar em um link */
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        /* Fecha ao voltar para desktop */
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 650) {
+                mainNav.classList.remove('active');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
 });

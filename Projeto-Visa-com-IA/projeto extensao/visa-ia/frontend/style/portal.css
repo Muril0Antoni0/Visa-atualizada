@@ -563,30 +563,6 @@ select option {
     font-weight: 500;
 }
 
-/* FLOATING HELP */
-.floating-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-    cursor: pointer;
-    transition: all 0.3s;
-    z-index: 99;
-}
-
-.floating-btn:hover {
-    transform: scale(1.1) rotate(10deg);
-}
-
 /* TABLETS */
 @media (max-width: 1024px) {
 
